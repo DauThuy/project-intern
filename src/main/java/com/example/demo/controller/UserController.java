@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class LoginController {
+public class UserController {
     @Autowired
     private AccountService accountService;
 
@@ -24,8 +24,4 @@ public class LoginController {
             return accountService.login(dto);
     }
 
-//    @PostMapping(value = "/login/create")
-//    public ResponseEntity<Response> createDto(@Valid @RequestBody UserDto dto) {
-//        return accountService.createUser(dto);
-//    }
 }

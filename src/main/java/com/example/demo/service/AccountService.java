@@ -34,8 +34,7 @@ public class AccountService {
         if (user == null ||  !encoder.matches(dto.getPassword(), user.getAccountPassword())) {
             throw new UnauthorizedException();
         }
-//        String t=encoder.encode("456");
-//        System.out.println("t:"+t);
+
         String token =jwtProvider.generateTokenForEmployee(user);
         InfoDto info = new InfoDto(
                 user.getAccountName(),
@@ -47,33 +46,7 @@ public class AccountService {
         return info;
     }
 
-//    public ResponseEntity<Response> createUser(UserDto dto) {
-//        Account user;
-////        Account existingUser = accountRepository.findByEmailAddress(dto.getEmailAddress());
-//
-//
-//        user = new Account();
-//        user.setAccountPassword(encoder.encode(dto.getAccountPassword()));
-//        user.setAccountName(dto.getAccountName());
-//        user.setAccountStatus(dto.getAccountStatus());
-//        user.setAccountImage(dto.getAccountImage());
-//        user.setEmailAddress(dto.getEmailAddress());
-//        user.setApprovalDate(dto.getApprovalDate());
-//        user.setDateCreated(dto.getDateCreated());
-//        user.setDateModified(dto.getDateModified());
-////        user.setRoleId(dto.getRoleId());
-//
-//
-//        try {
-//            accountRepository.save(user);
-//            return ResponseEntity.ok(Response.success("SUccess"));
-//        } catch (Exception e) {
-////            LOG.error(e.getMessage());
-//            return ResponseEntity
-//                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(Response.internalError(e.getMessage()));
-//        }
-//    }
+
 
 
 }

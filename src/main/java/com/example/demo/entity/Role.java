@@ -30,9 +30,6 @@ public class Role {
     @Column(name = "date_modified")
     private Date dateModified;
 
-//    @OneToMany(mappedBy = "roleId")
-//    private List<Account> accounts;
-
     @OneToMany(mappedBy = "role_id",fetch =FetchType.LAZY)
     private List<Account> accounts;
 }
