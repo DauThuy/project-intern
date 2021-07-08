@@ -19,7 +19,7 @@ public class LoginController {
     private AccountService accountService;
 
     @CrossOrigin(origins = "*")
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/api/v1/login")
     public InfoDto getInfo(@Valid @RequestBody AccountDto dto) {
             return accountService.login(dto);
     }
