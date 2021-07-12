@@ -5,6 +5,7 @@ import com.example.demo.model.dto.AccountDto;
 import com.example.demo.model.dto.CampaignDto;
 import com.example.demo.model.dto.InfoDto;
 import com.example.demo.service.AccountService;
+import com.example.demo.service.CampaignService;
 import com.example.demo.service.CampaignServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
     private AccountService accountService;
 
     @Autowired
-    private CampaignServiceImpl campaignService;
+    private CampaignService campaignService;
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
@@ -29,8 +30,9 @@ public class UserController {
     }
 
     @GetMapping(value="/campaign")
-    public CampaignDto getListUser() {
-        return campaignService.getCampaign();
+    public ResponseEntity<?> getListCampaign() {
+        List<Campaign> campaigns = campaignService.getListCampaigns();
+        return ResponseEntity.ok(campaigns);
     }
 
     @PostMapping("")

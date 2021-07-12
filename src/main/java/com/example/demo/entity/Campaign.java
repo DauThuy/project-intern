@@ -19,7 +19,7 @@ public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    @Column(name = "campaign_id")
+    @Column(name = "campaignId")
     private Integer campaignId;
 
     @Column(name = "campaign_name")

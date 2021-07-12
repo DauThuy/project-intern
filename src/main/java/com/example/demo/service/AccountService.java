@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
-
     @Autowired
     private BCryptPasswordEncoder encoder;
 
@@ -24,7 +23,6 @@ public class AccountService {
 
     @Autowired
     private ProvideJwt jwtProvider;
-
 
     public InfoDto login(AccountDto dto) {
         if(!EmailValidate.validateEmail(dto.getEmail())) {
