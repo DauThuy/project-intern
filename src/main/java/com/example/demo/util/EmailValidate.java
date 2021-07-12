@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.example.demo.util;
 
 public class EmailValidate {
     public static boolean validateEmail(String email) {

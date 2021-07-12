@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.common.EmailValidate;
-import com.example.demo.common.InValidEmailException;
-import com.example.demo.common.UnauthorizedException;
-import com.example.demo.config.ProvideJwt;
-import com.example.demo.dto.AccountDto;
-import com.example.demo.dto.InfoDto;
+import com.example.demo.util.EmailValidate;
+import com.example.demo.exception.InValidEmailException;
+import com.example.demo.exception.UnauthorizedException;
+import com.example.demo.security.ProvideJwt;
+import com.example.demo.model.dto.AccountDto;
+import com.example.demo.model.dto.InfoDto;
 import com.example.demo.entity.Account;
 import com.example.demo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +45,4 @@ public class AccountService {
         );
         return info;
     }
-
-
-
-
 }

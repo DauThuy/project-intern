@@ -1,27 +1,50 @@
 package com.example.demo.controller;
 
-import com.example.demo.common.Response;
-import com.example.demo.dto.AccountDto;
-import com.example.demo.dto.InfoDto;
-import com.example.demo.dto.UserDto;
-import com.example.demo.entity.Account;
+import com.example.demo.entity.Campaign;
+import com.example.demo.model.dto.AccountDto;
+import com.example.demo.model.dto.CampaignDto;
+import com.example.demo.model.dto.InfoDto;
 import com.example.demo.service.AccountService;
+import com.example.demo.service.CampaignServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private CampaignServiceImpl campaignService;
+
     @CrossOrigin(origins = "*")
-    @PostMapping(value = "/api/v1/login")
+    @PostMapping(value = "/login")
     public InfoDto getInfo(@Valid @RequestBody AccountDto dto) {
             return accountService.login(dto);
     }
 
+    @GetMapping(value="/campaign")
+    public CampaignDto getListUser() {
+        return campaignService.getCampaign();
+    }
+
+    @PostMapping("")
+    public ResponseEntity<?> createUser() {
+        return null;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser() {
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser() {
+        return null;
+    }
 }

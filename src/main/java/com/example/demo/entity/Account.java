@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -51,4 +52,8 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role_id;
+
+    @OneToMany(mappedBy="accountId",fetch = FetchType.LAZY)
+    private List<Campaign> campaigns;
+
 }

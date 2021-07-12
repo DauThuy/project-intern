@@ -1,4 +1,4 @@
-package com.example.demo.common;
+package com.example.demo.exception;
 
 public class InValidEmailException extends RuntimeException{
     public InValidEmailException() {
