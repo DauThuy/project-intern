@@ -14,12 +14,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "campaign")
+@Entity(name = "campaigns")
+@Table
 public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    @Column(name = "campaignId")
+    @Column(name = "campaign_id")
     private Integer campaignId;
 
     @Column(name = "campaign_name")
@@ -41,9 +42,9 @@ public class Campaign {
     private Integer campaignStatus;
 
     //date_create, modified
-
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account accountId;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "account_id")
+//    private Account accountId;
 
 }

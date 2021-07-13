@@ -13,7 +13,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "roles")
+@Entity
+@Table(name = "roles")
 public class Role {
 
     @Id
@@ -30,6 +31,6 @@ public class Role {
     @Column(name = "date_modified")
     private Date dateModified;
 
-    @OneToMany(mappedBy = "role_id",fetch =FetchType.LAZY)
-    private List<Account> accounts;
+//    @OneToMany(mappedBy = "role_id",fetch =FetchType.LAZY)
+//    private List<Account> accounts;
 }

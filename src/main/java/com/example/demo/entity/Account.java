@@ -7,13 +7,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "accounts")
+@Entity
+@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,11 +49,11 @@ public class Account {
 //    @JoinColumn(name = "roleId",referencedColumnName="role_id")
 //    private Role roleId;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role_id;
-
-    @OneToMany(mappedBy="accountId",fetch = FetchType.LAZY)
-    private List<Campaign> campaigns;
+//    @ManyToOne
+//    @JoinColumn(name = "role_id")
+//    private Role role_id;
+//
+//    @OneToMany(mappedBy="accountId",fetch = FetchType.LAZY)
+//    private List<Campaign> campaigns;
 
 }

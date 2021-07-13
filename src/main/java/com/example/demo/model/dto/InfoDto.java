@@ -12,7 +12,5 @@ import lombok.Setter;
 public class InfoDto {
     private String nameAccount;
     private String email;
-    private Integer role;
-    private String roleName;
     private String token;
 }
