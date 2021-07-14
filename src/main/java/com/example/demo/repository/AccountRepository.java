@@ -24,8 +24,8 @@ public interface AccountRepository extends JpaRepository<Account,Integer> {
 //    @Modifying
 //    @Query(value = "DELETE FROM accounts WHERE account_id=:id",nativeQuery = true)
 //    @Transactional
-//    @Modifying
-//    @Query(value = "UPDATE a.account_name, a.email_address FROM accounts a WHERE account_id=:id",nativeQuery = true)
-//    @Transactional
+    @Modifying
+    @Query(value = "UPDATE a.account_name, a.email_address FROM accounts a WHERE account_id=:id",nativeQuery = true)
+    @Transactional
     Account updateById(@Param("id") int id);
 }

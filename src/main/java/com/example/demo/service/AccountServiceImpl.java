@@ -50,7 +50,6 @@ public class AccountServiceImpl implements AccountService {
                 user.getAccountId(),
                 user.getAccountName(),
                 user.getEmailAddress(),
-                user.
                 token
 
         );
