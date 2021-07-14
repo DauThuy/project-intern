@@ -84,14 +84,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account updateUser(UpdateUserReq req, int id) {
-        Account user = accountRepository.findByEmailAddress(req.getEmailAddress());
-        if (user.getEmailAddress() == "") {
-            throw new DuplicateKeyException("No user found");
-        }
-        user = AccountMapper.toUser(req, id);
-        accountRepository.save(user);
-
-        return user;
+//        Account user1 = accountRepository.findByEmailAddress(req.getEmailAddress());
+//        if (user1 == null) {
+//            throw new DuplicateKeyException("No user found");
+//        }
+        Account user=accountRepository.findByAccountId(id);
+//        user = AccountMapper.toUser(req, id);
+       Account result=new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),user.getApprovalDate(),user.getDateCreated(),user.getDateModified());
+        accountRepository.save(result);
+        return result;
     }
-
 }

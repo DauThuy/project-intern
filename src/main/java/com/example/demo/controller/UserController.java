@@ -42,7 +42,7 @@ public class UserController {
         return null;
     }
 
-    @PutMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, @PathVariable int id) {
         Account account = accountService.updateUser(req, id);
         return ResponseEntity.ok(account);

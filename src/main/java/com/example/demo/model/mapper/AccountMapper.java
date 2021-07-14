@@ -30,8 +30,8 @@ public class AccountMapper {
         user.setEmailAddress(req.getEmailAddress());
 //        user.setAccountStatus(req.getAccountStatus());
         // Hash password using BCrypt
-        String hash = BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12));
-        user.setAccountPassword(hash);
+//        String hash = BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12));
+//        user.setAccountPassword(hash);
         return user;
     }
 }

@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 public class UpdateUserReq {
     @NotNull(message = "username is required")
     @NotEmpty(message = "username is required")
-    @JsonProperty("user_name")
     private String accountName;
 
     @NotNull(message = "Email is required")
@@ -26,9 +25,6 @@ public class UpdateUserReq {
     @Email(message = "Please provide a valid email")
     private String emailAddress;
 
-    @NotNull(message = "Password is required")
-    @NotEmpty(message = "Password is required")
-    @Size(min = 6, message = "Pasword must be at least 6 characters")
-    private String password;
+
 }
 
