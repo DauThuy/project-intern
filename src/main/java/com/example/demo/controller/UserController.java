@@ -23,12 +23,14 @@ public class UserController {
             return accountService.login(dto);
     }
 
-    @GetMapping(value="/users")
+    @CrossOrigin(origins = "*")
+    @GetMapping(value="/admin/users")
     public ResponseEntity<?> getListUsers() {
         List<Account> users = accountService.getAllUser();
         return ResponseEntity.ok(users);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping(value="/{id}")
     public ResponseEntity<?> getUsersById(@PathVariable int id) {
         System.out.println(id);
@@ -36,18 +38,23 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/create")
     public ResponseEntity<?> createUser() {
         return null;
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser() {
         return null;
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser() {
-        return null;
+    public ResponseEntity<?> deleteUser(@PathVariable int id) {
+        accountService.deleteUserById(id);
+        System.out.println("Deleted");
+        return ResponseEntity.ok("Deleted user");
     }
 }

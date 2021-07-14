@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.model.mapper.AccountMapper;
+import com.example.demo.model.request.CreateUserReq;
 import com.example.demo.util.EmailValidate;
 import com.example.demo.exception.InValidEmailException;
 import com.example.demo.exception.UnauthorizedException;
@@ -9,11 +11,11 @@ import com.example.demo.model.dto.InfoDto;
 import com.example.demo.entity.Account;
 import com.example.demo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -57,6 +59,23 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getUserById(int id) {
         return accountRepository.findByAccountId(id);
+    }
+
+    @Override
+    public void deleteUserById(int id) {
+        accountRepository.deleteAccountByAccountId(id);
+    }
+
+    @Override
+    public Account createUser(CreateUserReq req) {
+        Account user = accountRepository.findByEmailAddress(req.getEmailAddress());
+        if (user != null) {
+            throw new DuplicateKeyException("Email is already");
+        }
+        user = AccountMapper.toUser(req);
+        accountRepository.save(user);
+
+        return user;
     }
 
 }
