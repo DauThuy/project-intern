@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Role;
 import com.example.demo.model.mapper.AccountMapper;
 import com.example.demo.model.request.CreateUserReq;
 import com.example.demo.model.request.UpdateUserReq;
@@ -49,7 +50,9 @@ public class AccountServiceImpl implements AccountService {
                 user.getAccountId(),
                 user.getAccountName(),
                 user.getEmailAddress(),
+                user.
                 token
+
         );
         return info;
     }
