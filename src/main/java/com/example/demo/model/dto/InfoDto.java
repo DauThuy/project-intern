@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InfoDto {
+    private Integer accountId;
     private String nameAccount;
     private String email;
     private String token;
