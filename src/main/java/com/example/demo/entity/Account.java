@@ -39,7 +39,8 @@ public class Account {
     private Integer accountStatus;
 
     @Column(name="approval_date")
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date approvalDate;
 
     @Column(name="date_created")

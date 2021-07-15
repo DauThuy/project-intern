@@ -27,15 +27,15 @@ public class CreateUserReq {
     @Email(message = "Please provide a valid email")
     private String emailAddress;
 
-    private String accountImage;
+//    private String accountImage;
 
     private Integer accountStatus;
-
-    private Date approvalDate;
-
-    private Date dateCreated;
-
-    private Date dateModified;
+//
+//    private Date approvalDate;
+//
+//    private Date dateCreated;
+//
+//    private Date dateModified;
 
     private Integer roleId;
 }

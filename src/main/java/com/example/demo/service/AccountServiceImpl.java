@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,17 +65,20 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account createUser(CreateUserReq req) {
+        Date date = new Date();
         Account user = accountRepository.findByEmailAddress(req.getEmailAddress());
         if (user != null) {
             throw new DuplicateKeyException("Email is already");
         }
 
         Account result=new Account(req.getAccountId(),req.getAccountName(),req.getAccountPassword(),
-                                    req.getEmailAddress(),req.getAccountImage(),
-                                    req.getAccountStatus(),req.getApprovalDate(),
-                                    req.getDateCreated(),req.getDateModified(), req.getRoleId());
-        System.out.println("create:"+ req.getAccountId());
+                                    req.getEmailAddress(),"ava.png",
+                                    req.getAccountStatus(),date,
+                date,date, req.getRoleId());
+        System.out.println("create:"+ req.getAccountName() + "id = " + req.getAccountId());
         accountRepository.save(result);
+
+        System.out.println("alooooooo");
         return result;
     }
 
