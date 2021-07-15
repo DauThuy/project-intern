@@ -9,9 +9,9 @@ import java.util.Date;
 @Getter
 @Setter
 public class CreateUserReq {
-//    @NotNull(message = "account id is required")
-//    @NotEmpty(message = "account id is required")
-//    private Integer accountId;
+    @NotNull(message = "account id is required")
+    @NotEmpty(message = "account id is required")
+    private Integer accountId;
 
     @NotNull(message = "username is required")
     @NotEmpty(message = "username is required")

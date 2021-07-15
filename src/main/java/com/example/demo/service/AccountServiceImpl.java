@@ -70,14 +70,14 @@ public class AccountServiceImpl implements AccountService {
         if (user != null) {
             throw new DuplicateKeyException("Email is already");
         }
-
-        Account result=new Account(user.getAccountId(),req.getAccountName(),req.getAccountPassword(),
+        Account result=new Account(req.getAccountId(),req.getAccountName(),req.getAccountPassword(),
                                     req.getEmailAddress(),"ava.png",
                                     req.getAccountStatus(),date,
                 date,date, req.getRoleId());
-        System.out.println("create:"+ req.getAccountName() + "id = " + user.getAccountId());
+        System.out.println("create:"+ req.getAccountName() + "id = " + req.getAccountId());
         accountRepository.save(result);
 
+        System.out.println("alooooooo");
         return result;
     }
 
