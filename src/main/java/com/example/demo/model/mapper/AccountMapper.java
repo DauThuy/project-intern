@@ -14,7 +14,7 @@ public class AccountMapper {
     }
     public static Account toUser(CreateUserReq req) {
         Account user = new Account();
-        user.setAccountId(req.getAccountId());
+        user.setAccountId(user.getAccountId());
         user.setAccountName(req.getAccountName());
         user.setEmailAddress(req.getEmailAddress());
         String hash = BCrypt.hashpw(req.getAccountPassword(), BCrypt.gensalt(12));
