@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.request.CreateUserReq;
+import com.example.demo.model.request.UpdateUserByAdminReq;
 import com.example.demo.model.request.UpdateUserReq;
 import com.example.demo.util.EmailValidate;
 import com.example.demo.exception.InValidEmailException;
@@ -12,16 +13,12 @@ import com.example.demo.entity.Account;
 import com.example.demo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService {
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-
     @Autowired
     private AccountRepository accountRepository;
 
@@ -72,7 +69,10 @@ public class AccountServiceImpl implements AccountService {
             throw new DuplicateKeyException("Email is already");
         }
 
-        Account result=new Account(req.getAccountId(),req.getAccountName(),req.getEmailAddress(),req.getAccountPassword(),req.getAccountImage(),req.getAccountStatus(),req.getApprovalDate(),req.getDateCreated(),req.getDateModified(), req.getRoleId());
+        Account result=new Account(req.getAccountId(),req.getAccountName(),req.getAccountPassword(),
+                                    req.getEmailAddress(),req.getAccountImage(),
+                                    req.getAccountStatus(),req.getApprovalDate(),
+                                    req.getDateCreated(),req.getDateModified(), req.getRoleId());
         System.out.println("create:"+ req.getAccountId());
         accountRepository.save(result);
         return result;
@@ -81,7 +81,19 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account updateUser(UpdateUserReq req, int id) {
         Account user=accountRepository.findByAccountId(id);
-        Account result=new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),user.getApprovalDate(),user.getDateCreated(),user.getDateModified(),user.getRoleId());
+        Account result=new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),
+                                    req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),
+                                    user.getApprovalDate(),user.getDateCreated(),user.getDateModified(),user.getRoleId());
+        accountRepository.save(result);
+        return result;
+    }
+
+    @Override
+    public Account updateUserByAdmin(UpdateUserByAdminReq req, int id) {
+        Account user = accountRepository.findByAccountId(id);
+        Account result=new Account(req.getAccountId(),req.getAccountName(),user.getAccountPassword(),
+                                    req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),user.getApprovalDate(),
+                                    user.getDateCreated(),user.getDateModified(),req.getRoleId());
         accountRepository.save(result);
         return result;
     }

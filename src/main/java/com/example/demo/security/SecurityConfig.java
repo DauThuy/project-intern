@@ -15,8 +15,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final List<String> LIST_METHOD_ALLOW = Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE");
 
     @Bean
@@ -26,14 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     public SecurityConfig() {
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/api/v1/login/**").permitAll()
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+            .and()
+            .logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
     @Bean

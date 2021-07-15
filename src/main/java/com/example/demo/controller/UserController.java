@@ -4,6 +4,7 @@ import com.example.demo.entity.Account;
 import com.example.demo.model.dto.AccountDto;
 import com.example.demo.model.dto.InfoDto;
 import com.example.demo.model.request.CreateUserReq;
+import com.example.demo.model.request.UpdateUserByAdminReq;
 import com.example.demo.model.request.UpdateUserReq;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/")
 
 public class UserController {
     @Autowired
@@ -27,14 +28,14 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value="/admin/users")
+    @GetMapping(value="/users")
     public ResponseEntity<?> getListUsers() {
         List<Account> users = accountService.getAllUser();
         return ResponseEntity.ok(users);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value="/{id}")
+    @GetMapping(value="users/{id}")
     public ResponseEntity<?> getUsersById(@PathVariable int id) {
         System.out.println(id);
         Account user =  accountService.getUserById(id);
@@ -49,14 +50,21 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/update/{id}")
+    @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, @PathVariable int id) {
         Account account = accountService.updateUser(req, id);
         return ResponseEntity.ok(account);
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("delete/{id}")
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUserByAdmin(@Valid @RequestBody UpdateUserByAdminReq req, @PathVariable int id) {
+        Account account = accountService.updateUserByAdmin(req, id);
+        return ResponseEntity.ok(account);
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable int id) {
         accountService.deleteUserById(id);
         System.out.println("Deleted");

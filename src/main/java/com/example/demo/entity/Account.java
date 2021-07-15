@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,26 +43,15 @@ public class Account {
     private Date approvalDate;
 
     @Column(name="date_created")
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date dateCreated;
 
     @Column(name="date_modified")
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
     private Date dateModified;
 
     @Column(name="role_id")
     private Integer roleId;
-
-
-//    @ManyToOne
-//    @JoinColumn(name = "roleId",referencedColumnName="role_id")
-//    private Role roleId;
-
-//    @ManyToOne
-//    @JoinColumn(name = "role_id")
-//    private Role role_id;
-//
-//    @OneToMany(mappedBy="accountId",fetch = FetchType.LAZY)
-//    private List<Campaign> campaigns;
-
 }
