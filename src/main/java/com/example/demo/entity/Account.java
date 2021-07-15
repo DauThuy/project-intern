@@ -27,23 +27,30 @@ public class Account {
     @Column(name="account_password")
     private String accountPassword;
 
-    @Column(name="email_address")
+    @Column(name="email_address", unique=true)
     private String emailAddress;
 
-    @Column(name="account_image")
+    @Column(name="account_image", columnDefinition = "varchar(255) default 'ava.png'")
     private String accountImage;
 
-    @Column(name="account_status")
+    @Column(name="account_status", columnDefinition = "integer default 0")
     private Integer accountStatus;
 
     @Column(name="approval_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date approvalDate;
 
     @Column(name="date_created")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
 
     @Column(name="date_modified")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateModified;
+
+    @Column(name="role_id")
+    private Integer roleId;
+
 
 //    @ManyToOne
 //    @JoinColumn(name = "roleId",referencedColumnName="role_id")

@@ -40,11 +40,4 @@ public class Campaign {
 
     @Column(name = "campaign_status")
     private Integer campaignStatus;
-
-    //date_create, modified
-//
-//    @ManyToOne
-//    @JoinColumn(name = "account_id")
-//    private Account accountId;
-
 }

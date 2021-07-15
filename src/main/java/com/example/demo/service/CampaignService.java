@@ -4,8 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//@Component
 @Service
 public interface CampaignService {
-    public List<Campaign> getListCampaigns();
+    List<Campaign> getListCampaigns();
 }

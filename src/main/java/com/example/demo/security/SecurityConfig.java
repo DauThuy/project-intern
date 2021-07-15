@@ -5,19 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.util.UrlPathHelper;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,18 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
-//        http
-//                .cors()
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers("/**")
-////              .hasAnyAuthority("admin")
-////              .antMatchers("/login/**")
-////              .hasAnyAuthority("dac")
-////              .antMatchers( "/login/**")
-////              .hasAnyAuthority("advertiser")
-////              .anyRequest()
-//                .permitAll();
     }
 
     @Bean

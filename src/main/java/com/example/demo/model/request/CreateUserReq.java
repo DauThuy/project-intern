@@ -1,17 +1,20 @@
 package com.example.demo.model.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import javax.validation.constraints.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class CreateUserReq {
+    @NotNull(message = "account id is required")
+    @NotEmpty(message = "account id is required")
+    private Integer accountId;
+
     @NotNull(message = "username is required")
     @NotEmpty(message = "username is required")
-    @JsonProperty("user_name")
     private String accountName;
 
     @NotNull(message = "Email is required")
@@ -22,6 +25,18 @@ public class CreateUserReq {
     @NotNull(message = "Password is required")
     @NotEmpty(message = "Password is required")
     @Size(min = 6, message = "Pasword must be at least 6 characters")
-    private String password;
+    private String accountPassword;
+
+    private String accountImage;
+
+    private Integer accountStatus;
+
+    private Date approvalDate;
+
+    private Date dateCreated;
+
+    private Date dateModified;
+
+    private Integer roleId;
 }
 

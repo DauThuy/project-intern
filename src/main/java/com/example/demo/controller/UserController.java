@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Account;
 import com.example.demo.model.dto.AccountDto;
 import com.example.demo.model.dto.InfoDto;
+import com.example.demo.model.request.CreateUserReq;
 import com.example.demo.model.request.UpdateUserReq;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,9 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/create")
-    public ResponseEntity<?> createUser() {
-        return null;
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserReq req) {
+        Account account = accountService.createUser(req);
+        return ResponseEntity.ok(account);
     }
 
     @CrossOrigin(origins = "*")

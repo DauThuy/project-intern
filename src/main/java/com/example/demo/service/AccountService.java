@@ -12,10 +12,10 @@ import java.util.List;
 
 @Service
 public interface AccountService {
-    public InfoDto login(AccountDto dto);
-    public List<Account> getAllUser();
-    public Account getUserById(int id);
-    public String deleteUserById(int id);
-    public Account createUser(CreateUserReq req);
-    public Account updateUser(UpdateUserReq req, int id);
+    InfoDto login(AccountDto dto);
+    List<Account> getAllUser();
+    Account getUserById(int id);
+    String deleteUserById(int id);
+    Account createUser(CreateUserReq req);
+    Account updateUser(UpdateUserReq req, int id);
 }

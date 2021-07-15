@@ -24,5 +24,4 @@ public class ProvideJwt
                 .withExpiresAt(new Date(System.currentTimeMillis()  + Integer.parseInt(jwtExpirationInMs)))
                 .sign(Algorithm.HMAC512(jwtSecret.getBytes()));
     }
-
 }

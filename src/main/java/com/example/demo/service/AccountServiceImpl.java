@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Role;
-import com.example.demo.model.mapper.AccountMapper;
 import com.example.demo.model.request.CreateUserReq;
 import com.example.demo.model.request.UpdateUserReq;
 import com.example.demo.util.EmailValidate;
@@ -18,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -33,14 +30,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public InfoDto login(AccountDto dto) {
-//        System.out.println("code password: " + encoder.encode("1234567"));
         if (!EmailValidate.validateEmail(dto.getEmail())) {
             throw new InValidEmailException();
         }
         Account user = accountRepository.findByEmailAddress(dto.getEmail());
-//        if (user == null || !encoder.matches(dto.getPassword(), user.getAccountPassword())) {
-//            throw new UnauthorizedException();
-//        }
         if (user == null || !(dto.getPassword().equals(user.getAccountPassword()))) {
             throw new UnauthorizedException();
         }
@@ -50,8 +43,8 @@ public class AccountServiceImpl implements AccountService {
                 user.getAccountId(),
                 user.getAccountName(),
                 user.getEmailAddress(),
+                user.getRoleId(),
                 token
-
         );
         return info;
     }
@@ -78,21 +71,17 @@ public class AccountServiceImpl implements AccountService {
         if (user != null) {
             throw new DuplicateKeyException("Email is already");
         }
-        user = AccountMapper.toUser(req);
-        accountRepository.save(user);
 
-        return user;
+        Account result=new Account(req.getAccountId(),req.getAccountName(),req.getEmailAddress(),req.getAccountPassword(),req.getAccountImage(),req.getAccountStatus(),req.getApprovalDate(),req.getDateCreated(),req.getDateModified(), req.getRoleId());
+        System.out.println("create:"+ req.getAccountId());
+        accountRepository.save(result);
+        return result;
     }
 
     @Override
     public Account updateUser(UpdateUserReq req, int id) {
-//        Account user1 = accountRepository.findByEmailAddress(req.getEmailAddress());
-//        if (user1 == null) {
-//            throw new DuplicateKeyException("No user found");
-//        }
         Account user=accountRepository.findByAccountId(id);
-//        user = AccountMapper.toUser(req, id);
-       Account result=new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),user.getApprovalDate(),user.getDateCreated(),user.getDateModified());
+        Account result=new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),user.getApprovalDate(),user.getDateCreated(),user.getDateModified(),user.getRoleId());
         accountRepository.save(result);
         return result;
     }
