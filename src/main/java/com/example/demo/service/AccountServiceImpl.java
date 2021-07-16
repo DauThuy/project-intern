@@ -70,34 +70,32 @@ public class AccountServiceImpl implements AccountService {
         if (user != null) {
             throw new DuplicateKeyException("Email is already");
         }
-        Account result=new Account(req.getAccountId(),req.getAccountName(),req.getAccountPassword(),
+        Account newUser = new Account(req.getAccountId(),req.getAccountName(),req.getAccountPassword(),
                                     req.getEmailAddress(),"ava.png",
                                     req.getAccountStatus(),date,
-                date,date, req.getRoleId());
-        System.out.println("create:"+ req.getAccountName() + "id = " + req.getAccountId());
-        accountRepository.save(result);
-
-        System.out.println("alooooooo");
-        return result;
+                                    date,date, req.getRoleId());
+        System.out.println("create:"+ req.getAccountId());
+        accountRepository.save(newUser);
+        return newUser;
     }
 
     @Override
     public Account updateUser(UpdateUserReq req, int id) {
         Account user=accountRepository.findByAccountId(id);
-        Account result=new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),
+        Account userUpdate = new Account(user.getAccountId(),req.getAccountName(),user.getAccountPassword(),
                                     req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),
                                     user.getApprovalDate(),user.getDateCreated(),user.getDateModified(),user.getRoleId());
-        accountRepository.save(result);
-        return result;
+        accountRepository.save(userUpdate);
+        return userUpdate;
     }
 
     @Override
     public Account updateUserByAdmin(UpdateUserByAdminReq req, int id) {
         Account user = accountRepository.findByAccountId(id);
-        Account result=new Account(req.getAccountId(),req.getAccountName(),user.getAccountPassword(),
+        Account userUpdatedByAdmin = new Account(req.getAccountId(),req.getAccountName(),user.getAccountPassword(),
                                     req.getEmailAddress(),user.getAccountImage(),user.getAccountStatus(),user.getApprovalDate(),
                                     user.getDateCreated(),user.getDateModified(),req.getRoleId());
-        accountRepository.save(result);
-        return result;
+        accountRepository.save(userUpdatedByAdmin);
+        return userUpdatedByAdmin;
     }
 }
