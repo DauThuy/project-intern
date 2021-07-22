@@ -12,20 +12,9 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateUserByAdminReq {
-    @NotNull(message = "account id is required")
-    @NotEmpty(message = "account id is required")
-    private Integer accountId;
-
+public class ParamUserUpdateUser {
     @NotNull(message = "username is required")
     @NotEmpty(message = "username is required")
-    private String accountName;
-
-    @NotNull(message = "Email is required")
-    @NotEmpty(message = "Email is required")
-    @Email(message = "Please provide a valid email")
-    private String emailAddress;
-
-    private Integer roleId;
+    private String userName;
 }
 

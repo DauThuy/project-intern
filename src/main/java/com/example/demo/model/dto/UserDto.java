@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Comparator;
 import java.util.Date;
 
 @Getter
@@ -12,17 +13,17 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private Integer accountId;
+    private Integer userId;
 
-    private String accountName;
+    private String userName;
 
-    private String accountPassword;
+    private String userPassword;
 
-    private String emailAddress;
+    private String userEmailAddress;
 
-    private String accountImage;
+    private String userImage;
 
-    private Integer accountStatus;
+    private Integer userStatus;
 
     private Date approvalDate;
 
@@ -31,4 +32,6 @@ public class UserDto {
     private Date dateModified;
 
     private Integer roleId;
+
+    private Boolean isDelete;
 }

@@ -20,39 +20,40 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    @Column(name = "account_id")
+    @Column(name = "account_id", nullable = false)
     private Integer accountId;
 
-    @Column(name="account_name")
+    @Column(name="account_name", nullable = false)
     private String accountName;
 
-    @Column(name="account_password")
+    @Column(name="account_password", nullable = false)
     private String accountPassword;
 
-    @Column(name="email_address", unique=true)
+    @Column(name="email_address", unique=true, nullable = false)
     private String emailAddress;
 
-    @Column(name="account_image", columnDefinition = "varchar(255) default 'ava.png'")
+    @Column(name="account_image", columnDefinition = "varchar(255) default 'ava.png'", nullable = false)
     private String accountImage;
 
-    @Column(name="account_status", columnDefinition = "integer default 0")
+    @Column(name="account_status", nullable = false)
     private Integer accountStatus;
 
-    @Column(name="approval_date")
+    @Column(name="approval_date", nullable = false)
 //    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date approvalDate;
 
-    @Column(name="date_created")
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="date_created", nullable = false)
     @CreationTimestamp
     private Date dateCreated;
 
-    @Column(name="date_modified")
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="date_modified", nullable = false)
     @UpdateTimestamp
     private Date dateModified;
 
-    @Column(name="role_id")
+    @Column(name="role_id", nullable = false)
     private Integer roleId;
+
+    @Column(name="is_delete", columnDefinition = "boolean default false", nullable = false)
+    private Boolean isDelete;
 }

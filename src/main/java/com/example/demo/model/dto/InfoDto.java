@@ -15,5 +15,4 @@ public class InfoDto {
     private String email;
     private Integer roleId;
     private String token;
-
 }

@@ -15,9 +15,4 @@ public interface AccountRepository extends JpaRepository<Account,Integer> {
     Account findByEmailAddress(String email);
     List<Account> findAllBy();
     Account findByAccountId(int id);
-
-    @Modifying
-//    @Query(value = "DELETE FROM accounts WHERE account_id=:id",nativeQuery = true)
-    @Transactional
-    void deleteAccountByAccountId(@Param("id") int id);
 }
