@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -39,16 +37,12 @@ public class Account {
     private Integer accountStatus;
 
     @Column(name="approval_date", nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
     private Date approvalDate;
 
     @Column(name="date_created", nullable = false)
-    @CreationTimestamp
     private Date dateCreated;
 
     @Column(name="date_modified", nullable = false)
-    @UpdateTimestamp
     private Date dateModified;
 
     @Column(name="role_id", nullable = false)

@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,10 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    public SecurityConfig() {
-//
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/api/v1/login/**").permitAll()
@@ -35,6 +32,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
+//        http
+//                .cors()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/**")
+//                .hasAnyAuthority("admin")
+//                .antMatchers("/login/**", "/getListUsers")
+//                .hasAnyAuthority("dac")
+//                .antMatchers( "/login/**")
+//                .hasAnyAuthority("advertiser")
+//                .anyRequest()
+//                .permitAll();
+//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

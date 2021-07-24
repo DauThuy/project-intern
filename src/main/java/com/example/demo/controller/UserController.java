@@ -10,17 +10,42 @@ import com.example.demo.model.request.ParamUserUpdateUser;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/")
+@FrameworkEndpoint
 
 public class UserController {
     @Autowired
     private AccountService accountService;
+
+//    ConsumerTokenServices tokenServices;
+
+//    @CrossOrigin(origins = "*")
+//    @PostMapping("users/delete")
+//    public ResponseEntity<?> revokeToken(@Valid @RequestBody String tokenId) {
+//        tokenServices.revokeToken(tokenId);
+////        consumerTokenServices().revokeToken(tokenId);
+//        return ResponseEntity.ok("success");
+//    }
+
+//    ConsumerTokenServices consumerTokenServices() {
+//        return new ConsumerTokenServices() {
+//            @Override
+//            public boolean revokeToken(String tokenId) {
+//                tokenServices.revokeToken(tokenId);
+//                return true;
+//            }
+//        };
+//    }
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
@@ -29,11 +54,18 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping(value = "/user/token")
+    public UserDto getInfoUserFromToken(@Valid @RequestBody String token) {
+        return accountService.getInfoUserFromToken(token);
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping(value="/users")
     public ResponseEntity<?> getListUsers() {
         List<UserDto> users = accountService.getAllUser();
         return ResponseEntity.ok(users);
     }
+
 
     @CrossOrigin(origins = "*")
     @GetMapping(value="users/{id}")
@@ -79,4 +111,21 @@ public class UserController {
         System.out.println("Deleted");
         return ResponseEntity.ok("Deleted user");
     }
+
+
+//    public ResponseEntity<?> revokeToken(HttpServletRequest request) {
+//        String authorization = request.getHeader("Authorization");
+//        if (authorization != null && authorization.contains("Bearer")){
+//            String tokenId = authorization.substring("Bearer".length()+1);
+//            tokenServices.revokeToken(tokenId);
+//        }
+//        return ResponseEntity.ok("Delete token");
+//    }
+//    @CrossOrigin(origins = "*")
+//    @PostMapping("users/delete")
+//    public String revokeToken(@PathVariable String tokenId) {
+//        tokenServices.revokeToken(tokenId);
+//        return tokenId;
+//    }
+
 }

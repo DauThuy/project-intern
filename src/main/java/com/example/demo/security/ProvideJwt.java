@@ -15,7 +15,6 @@ import java.util.Date;
 public class ProvideJwt {
     @Value("secret")
     private String jwtSecret;
-    private final String JWT_SECRET = "lodaaaaaa";
 
     @Value("64800000")
     private String jwtExpirationInMs;
@@ -28,24 +27,14 @@ public class ProvideJwt {
                 .sign(Algorithm.HMAC512(jwtSecret.getBytes()));
     }
 
-    public Long getUserIdFromJWT (String token) {
+    public Integer getUserIdFromJWT (String token) {
         String id = JWT
                 .require(Algorithm.HMAC512(jwtSecret.getBytes()))
                 .build()
                 .verify(token)
                 .getSubject();
 
-        return Long.parseLong(id);
-    }
-
-    // Get info user from jwt
-    public Long getUserIdFromJWT2(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(JWT_SECRET)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return Long.parseLong(claims.getSubject());
+        return Integer.parseInt(id);
     }
 
     public String validateToken (String accessToken) {
@@ -56,19 +45,4 @@ public class ProvideJwt {
                 .getPayload();
     }
 
-    public boolean validateToken2(String authToken) {
-        try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
-            return true;
-        } catch (MalformedJwtException ex) {
-            log.error("Invalid JWT token");
-        } catch (ExpiredJwtException ex) {
-            log.error("Expired JWT token");
-        } catch (UnsupportedJwtException ex) {
-            log.error("Unsupported JWT token");
-        } catch (IllegalArgumentException ex) {
-            log.error("JWT claims string is empty.");
-        }
-        return false;
-    }
 }

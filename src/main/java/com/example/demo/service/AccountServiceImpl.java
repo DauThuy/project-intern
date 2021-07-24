@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Role;
+import com.example.demo.entity.Token;
 import com.example.demo.exception.InValidPasswordException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.dto.UserDto;
@@ -8,6 +10,7 @@ import com.example.demo.model.request.ParamChangePassword;
 import com.example.demo.model.request.ParamCreateUser;
 import com.example.demo.model.request.ParamAdminUpdateUser;
 import com.example.demo.model.request.ParamUserUpdateUser;
+import com.example.demo.repository.TokenRepository;
 import com.example.demo.util.EmailValidate;
 import com.example.demo.exception.InValidEmailException;
 import com.example.demo.exception.UnauthorizedException;
@@ -23,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Service
@@ -34,9 +38,28 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
+    private TokenRepository tokenRepository;
+
+    @Autowired
     private ProvideJwt jwtProvider;
 
     Date now = new Date();
+
+
+    @Override
+    public UserDto getInfoUserFromToken(String token) {
+        if (jwtProvider.validateToken(token) == null) {
+            throw new UnauthorizedException();
+        }
+        return getUserById(jwtProvider.getUserIdFromJWT(token));
+    }
+
+    public String deleteToken(String token) {
+//        int idUser = jwtProvider.getUserIdFromJWT(token);
+//        Account account = accountRepository.getById(idUser);
+//        infoDto.setToken("");
+       return "deleted token";
+    }
 
     @Override
     public InfoDto login(AccountDto dto) {
@@ -48,6 +71,7 @@ public class AccountServiceImpl implements AccountService {
             throw new UnauthorizedException();
         }
         String token = jwtProvider.generateTokenForEmployee(user);
+
         InfoDto info = new InfoDto(
                 user.getAccountId(),
                 user.getAccountName(),
@@ -55,8 +79,43 @@ public class AccountServiceImpl implements AccountService {
                 user.getRoleId(),
                 token
         );
+
+        Token tokenUser = tokenRepository.findByAccountId(info.getAccountId());
+        if (tokenUser != null) {
+            System.out.println("Test xem user da dang nhap lan nao chua");
+            tokenUser.setToken(token);
+            System.out.println("Test xem da update duoc token user chua ay ma ))");
+            tokenRepository.save(tokenUser);
+            System.out.println("Test xem co luu vao database duoc chua ay ma :))");
+        } else {
+            System.out.println("Vo day roi ha");
+            Token newUserToken = new Token();
+            newUserToken.setAccountId(info.getAccountId());
+            newUserToken.setToken(token);
+//            newUserToken.setTokenId(tokenRepository.findAll().size() + 1);
+            System.out.println("Chan chan la vo day roi huhu");
+            tokenRepository.save(newUserToken);
+        }
+
         return info;
     }
+
+    @Override
+    public void revokeToken(UserDto userDto) {
+        Token userToken = tokenRepository.findByAccountId(userDto.getUserId());
+        userToken.setToken("");
+        tokenRepository.save(userToken);
+    }
+
+//    @Override
+//    public void revokeToken(HttpServletRequest request) {
+//        String authorization = request.getHeader("Authorization");
+//        if (authorization != null && authorization.contains("Bearer")){
+//            String tokenId = authorization.substring("Bearer".length()+1);
+//            tokenServices.revokeToken(tokenId);
+//        }
+
+//    }
 
     @Override
     public List<UserDto> getAllUser() {
