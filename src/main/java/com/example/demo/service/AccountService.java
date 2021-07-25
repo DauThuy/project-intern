@@ -1,22 +1,19 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Account;
 import com.example.demo.model.dto.AccountDto;
-import com.example.demo.model.dto.InfoDto;
+import com.example.demo.model.dto.TokenResponse;
 import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.request.ParamChangePassword;
 import com.example.demo.model.request.ParamCreateUser;
 import com.example.demo.model.request.ParamAdminUpdateUser;
 import com.example.demo.model.request.ParamUserUpdateUser;
-import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
 public interface AccountService {
-    String login(AccountDto dto);
+    TokenResponse login(AccountDto dto);
 //    public void revokeToken(HttpServletRequest request)
 
     String revokeToken(int id);

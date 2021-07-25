@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Account;
 import com.example.demo.model.dto.AccountDto;
 import com.example.demo.model.dto.InfoDto;
+import com.example.demo.model.dto.TokenResponse;
 import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.request.ParamChangePassword;
 import com.example.demo.model.request.ParamCreateUser;
@@ -59,7 +60,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
-    public String getInfo(@Valid @RequestBody AccountDto dto) {
+    public TokenResponse getInfo(@Valid @RequestBody AccountDto dto) {
             return accountService.login(dto);
     }
 

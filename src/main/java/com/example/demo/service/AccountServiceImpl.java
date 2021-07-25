@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Role;
 import com.example.demo.entity.Token;
 import com.example.demo.exception.InValidPasswordException;
 import com.example.demo.exception.NotFoundException;
+import com.example.demo.model.dto.TokenResponse;
 import com.example.demo.model.dto.UserDto;
 import com.example.demo.model.mapper.AccountMapper;
 import com.example.demo.model.request.ParamChangePassword;
@@ -61,42 +61,8 @@ public class AccountServiceImpl implements AccountService {
        return "deleted token";
     }
 
-//    @Override
-//    public InfoDto login(AccountDto dto) {
-//        if(!EmailValidate.validateEmail(dto.getEmail())) {
-//            throw new InValidEmailException();
-//        }
-//        Account user = accountRepository.findByEmailAddress(dto.getEmail());
-//        if (user == null || !encoder.matches(dto.getPassword(), user.getAccountPassword())) {
-//            throw new UnauthorizedException();
-//        }
-//        String token = jwtProvider.generateTokenForEmployee(user);
-//
-//        InfoDto info = new InfoDto(
-//                user.getAccountId(),
-//                user.getAccountName(),
-//                user.getEmailAddress(),
-//                user.getRoleId(),
-//                token
-//        );
-//
-//        Token tokenUser = tokenRepository.findByAccountId(info.getAccountId());
-//        if (tokenUser != null) {
-//            tokenUser.setToken(token);
-//            tokenRepository.save(tokenUser);
-//        } else {
-//            Token newUserToken = new Token();
-//            newUserToken.setAccountId(info.getAccountId());
-//            newUserToken.setToken(token);
-////            newUserToken.setTokenId(tokenRepository.findAll().size() + 1);
-//            tokenRepository.save(newUserToken);
-//        }
-//
-//        return info;
-//    }
-
     @Override
-    public String login(AccountDto dto) {
+    public TokenResponse login(AccountDto dto) {
         if(!EmailValidate.validateEmail(dto.getEmail())) {
             throw new InValidEmailException();
         }
@@ -123,32 +89,23 @@ public class AccountServiceImpl implements AccountService {
             tokenRepository.save(newUserToken);
         }
 
-        String tokenResponse = tokenUser.getToken();
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setToken(tokenUser.getToken());
+        tokenResponse.setAccount_id(tokenUser.getAccountId());
+        tokenResponse.setRole_id(user.getRoleId());
 
-        return "login successful " + tokenResponse;
+        return tokenResponse;
     }
 
     @Override
     public String revokeToken(int id) {
         Account account = accountRepository.findByAccountId(id);
-        Token userToken = tokenRepository.removeTokensByAccountId(account.getAccountId());
+//        Token userToken = tokenRepository.removeTokensByAccountId(account.getAccountId());
+        Token userToken = tokenRepository.findByAccountId(account.getAccountId());
+        userToken.setToken("");
         tokenRepository.save(userToken);
         return "removed token";
     }
-
-//    @Override
-//    public void revokeToken(HttpServletRequest request) {
-//        String authorization = request.getHeader("Authorization");
-//        if (authorization != null && authorization.contains("Bearer")){
-//            String tokenId = authorization.substring("Bearer".length()+1);
-//            UserDto userDto = getInfoUserFromToken(tokenId);
-//
-//            Account account = accountRepository.findByAccountId(userDto.getUserId());
-//            Token userToken = tokenRepository.removeTokensByAccountId(account.getAccountId());
-//            tokenRepository.save(userToken);
-//        }
-//
-//    }
 
     @Override
     public List<UserDto> getAllUser() {
@@ -242,4 +199,54 @@ public class AccountServiceImpl implements AccountService {
 
         return AccountMapper.toUserDto(account);
     }
+
+//    @Override
+//    public InfoDto login(AccountDto dto) {
+//        if(!EmailValidate.validateEmail(dto.getEmail())) {
+//            throw new InValidEmailException();
+//        }
+//        Account user = accountRepository.findByEmailAddress(dto.getEmail());
+//        if (user == null || !encoder.matches(dto.getPassword(), user.getAccountPassword())) {
+//            throw new UnauthorizedException();
+//        }
+//        String token = jwtProvider.generateTokenForEmployee(user);
+//
+//        InfoDto info = new InfoDto(
+//                user.getAccountId(),
+//                user.getAccountName(),
+//                user.getEmailAddress(),
+//                user.getRoleId(),
+//                token
+//        );
+//
+//        Token tokenUser = tokenRepository.findByAccountId(info.getAccountId());
+//        if (tokenUser != null) {
+//            tokenUser.setToken(token);
+//            tokenRepository.save(tokenUser);
+//        } else {
+//            Token newUserToken = new Token();
+//            newUserToken.setAccountId(info.getAccountId());
+//            newUserToken.setToken(token);
+////            newUserToken.setTokenId(tokenRepository.findAll().size() + 1);
+//            tokenRepository.save(newUserToken);
+//        }
+//
+//        return info;
+//    }
+
+
+//    @Override
+//    public void revokeToken(HttpServletRequest request) {
+//        String authorization = request.getHeader("Authorization");
+//        if (authorization != null && authorization.contains("Bearer")){
+//            String tokenId = authorization.substring("Bearer".length()+1);
+//            UserDto userDto = getInfoUserFromToken(tokenId);
+//
+//            Account account = accountRepository.findByAccountId(userDto.getUserId());
+//            Token userToken = tokenRepository.removeTokensByAccountId(account.getAccountId());
+//            tokenRepository.save(userToken);
+//        }
+//
+//    }
+
 }
