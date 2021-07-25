@@ -16,8 +16,10 @@ import java.util.List;
 
 @Service
 public interface AccountService {
-    InfoDto login(AccountDto dto);
-    void revokeToken(UserDto userDto);
+    String login(AccountDto dto);
+//    public void revokeToken(HttpServletRequest request)
+
+    String revokeToken(int id);
     UserDto getInfoUserFromToken(String token);
 //    ConsumerTokenServices consumerTokenServices();
     List<UserDto> getAllUser();

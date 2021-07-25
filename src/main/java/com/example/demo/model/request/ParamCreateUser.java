@@ -22,6 +22,8 @@ public class ParamCreateUser {
     @Email(message = "Please provide a valid email")
     private String emailAddress;
 
+    @NotNull
+    @NotEmpty
     private Integer roleId;
 }
 

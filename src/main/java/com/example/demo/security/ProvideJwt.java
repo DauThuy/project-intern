@@ -37,6 +37,15 @@ public class ProvideJwt {
         return Integer.parseInt(id);
     }
 
+//    public Integer getUserIdFromJWT(String token) {
+//        Claims claims = Jwts.parser()
+//                .setSigningKey(jwtSecret)
+//                .parseClaimsJws(token)
+//                .getBody();
+//
+//        return  Integer.parseInt(claims.getSubject());
+//    }
+
     public String validateToken (String accessToken) {
         return JWT
                 .require(Algorithm.HMAC512(jwtSecret.getBytes()))
@@ -44,5 +53,21 @@ public class ProvideJwt {
                 .verify(accessToken)
                 .getPayload();
     }
+
+//    public boolean validateToken(String authToken) {
+//        try {
+//            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+//            return true;
+//        } catch (MalformedJwtException ex) {
+//            log.error("Invalid JWT token");
+//        } catch (ExpiredJwtException ex) {
+//            log.error("Expired JWT token");
+//        } catch (UnsupportedJwtException ex) {
+//            log.error("Unsupported JWT token");
+//        } catch (IllegalArgumentException ex) {
+//            log.error("JWT claims string is empty.");
+//        }
+//        return false;
+//    }
 
 }

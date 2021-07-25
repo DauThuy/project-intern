@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Account;
 import com.example.demo.model.dto.AccountDto;
 import com.example.demo.model.dto.InfoDto;
 import com.example.demo.model.dto.UserDto;
@@ -10,8 +11,11 @@ import com.example.demo.model.request.ParamUserUpdateUser;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,9 +51,15 @@ public class UserController {
 //        };
 //    }
 
+    @DeleteMapping(value = "/delete/token/{id}")
+    public ResponseEntity<?>  removeToken(@PathVariable int id) {
+        accountService.revokeToken(id);
+        return ResponseEntity.ok("deleted token");
+    }
+
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
-    public InfoDto getInfo(@Valid @RequestBody AccountDto dto) {
+    public String getInfo(@Valid @RequestBody AccountDto dto) {
             return accountService.login(dto);
     }
 
