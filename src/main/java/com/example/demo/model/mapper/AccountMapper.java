@@ -1,7 +1,7 @@
 package com.example.demo.model.mapper;
 import com.example.demo.entity.Account;
-import com.example.demo.model.dto.UserDto;
-import com.example.demo.model.request.ParamCreateUser;
+import com.example.demo.model.dto.account.UserDto;
+import com.example.demo.model.request.accountRequest.ParamCreateUser;
 import com.example.demo.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -9,9 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import java.util.Date;
 
 public class AccountMapper {
-    @Autowired
-    private AccountRepository accountRepository;
-
     public static UserDto toUserDto (Account account) {
         UserDto userDto = new UserDto();
         userDto.setUserId(account.getAccountId());

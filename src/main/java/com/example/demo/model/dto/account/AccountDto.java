@@ -1,4 +1,4 @@
-package com.example.demo.model.dto;
+package com.example.demo.model.dto.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TokenResponse {
-    private String token;
-    private Integer account_id;
-    private Integer role_id;
+public class AccountDto {
+    private String email;
+    private String password;
 }

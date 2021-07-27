@@ -1,10 +1,9 @@
-package com.example.demo.model.request;
+package com.example.demo.model.request.accountRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -12,9 +11,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ParamUserUpdateUser {
-    @NotNull(message = "username is required")
-    @NotEmpty(message = "username is required")
+public class ParamAdminUpdateUser {
+    @NotNull
+    @NotEmpty
     private String userName;
+
+    @NotNull
+    @NotEmpty
+    private Integer roleId;
 }
 

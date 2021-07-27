@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TokenRepository extends JpaRepository <Token, Integer> {
-    Token findByTokenId(int id);
     Token findByAccountId(int id);
-    Token removeTokensByAccountId(int id);
+//    Token findByTokenId(int id);
+//    Token removeTokensByAccountId(int id);
 //    Token removeTokenByToken(String token);
 }
 

@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
-    @Query(value = "SELECT * FROM campaigns", nativeQuery = true)
-    List<Campaign> getAll();
+    List<Campaign> findAllBy();
+    Campaign findCampaignByCampaignId(int id);
 }

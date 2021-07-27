@@ -1,6 +1,6 @@
 package com.example.demo.util;
 
-import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.dto.account.UserDto;
 
 import java.util.Comparator;
 

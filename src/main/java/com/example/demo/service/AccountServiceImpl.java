@@ -3,20 +3,19 @@ package com.example.demo.service;
 import com.example.demo.entity.Token;
 import com.example.demo.exception.InValidPasswordException;
 import com.example.demo.exception.NotFoundException;
-import com.example.demo.model.dto.TokenResponse;
-import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.dto.token.TokenResponse;
+import com.example.demo.model.dto.account.UserDto;
 import com.example.demo.model.mapper.AccountMapper;
-import com.example.demo.model.request.ParamChangePassword;
-import com.example.demo.model.request.ParamCreateUser;
-import com.example.demo.model.request.ParamAdminUpdateUser;
-import com.example.demo.model.request.ParamUserUpdateUser;
+import com.example.demo.model.request.accountRequest.ParamChangePassword;
+import com.example.demo.model.request.accountRequest.ParamCreateUser;
+import com.example.demo.model.request.accountRequest.ParamAdminUpdateUser;
+import com.example.demo.model.request.accountRequest.ParamUserUpdateUser;
 import com.example.demo.repository.TokenRepository;
 import com.example.demo.util.EmailValidate;
 import com.example.demo.exception.InValidEmailException;
 import com.example.demo.exception.UnauthorizedException;
 import com.example.demo.security.ProvideJwt;
-import com.example.demo.model.dto.AccountDto;
-import com.example.demo.model.dto.InfoDto;
+import com.example.demo.model.dto.account.AccountDto;
 import com.example.demo.entity.Account;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.util.UserUtils;
@@ -26,7 +25,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Service
@@ -54,13 +52,6 @@ public class AccountServiceImpl implements AccountService {
         return getUserById(jwtProvider.getUserIdFromJWT(token));
     }
 
-    public String deleteToken(String token) {
-//        int idUser = jwtProvider.getUserIdFromJWT(token);
-//        Account account = accountRepository.getById(idUser);
-//        infoDto.setToken("");
-       return "deleted token";
-    }
-
     @Override
     public TokenResponse login(AccountDto dto) {
         if(!EmailValidate.validateEmail(dto.getEmail())) {
@@ -74,18 +65,12 @@ public class AccountServiceImpl implements AccountService {
 
         Token tokenUser = tokenRepository.findByAccountId(user.getAccountId());
         if (tokenUser != null) {
-            System.out.println("Test xem user da dang nhap lan nao chua");
             tokenUser.setToken(token);
-            System.out.println("Test xem da update duoc token user");
             tokenRepository.save(tokenUser);
-            System.out.println("Test xem co luu vao database duoc chua");
         } else {
-            System.out.println("Vo day roi ha");
             Token newUserToken = new Token();
             newUserToken.setAccountId(user.getAccountId());
             newUserToken.setToken(token);
-//            newUserToken.setTokenId(tokenRepository.findAll().size() + 1);
-            System.out.println("Chan chan la vo day roi");
             tokenRepository.save(newUserToken);
         }
 
@@ -95,16 +80,6 @@ public class AccountServiceImpl implements AccountService {
         tokenResponse.setRole_id(user.getRoleId());
 
         return tokenResponse;
-    }
-
-    @Override
-    public String revokeToken(int id) {
-        Account account = accountRepository.findByAccountId(id);
-//        Token userToken = tokenRepository.removeTokensByAccountId(account.getAccountId());
-        Token userToken = tokenRepository.findByAccountId(account.getAccountId());
-        userToken.setToken("");
-        tokenRepository.save(userToken);
-        return "removed token";
     }
 
     @Override
@@ -137,7 +112,7 @@ public class AccountServiceImpl implements AccountService {
         account.setIsDelete(true);
         accountRepository.save(account);
 
-        return "account removed" + id + ": " + account.getAccountName();
+        return "account is removed" + id + ": " + account.getAccountName();
     }
 
     @Override
@@ -199,54 +174,4 @@ public class AccountServiceImpl implements AccountService {
 
         return AccountMapper.toUserDto(account);
     }
-
-//    @Override
-//    public InfoDto login(AccountDto dto) {
-//        if(!EmailValidate.validateEmail(dto.getEmail())) {
-//            throw new InValidEmailException();
-//        }
-//        Account user = accountRepository.findByEmailAddress(dto.getEmail());
-//        if (user == null || !encoder.matches(dto.getPassword(), user.getAccountPassword())) {
-//            throw new UnauthorizedException();
-//        }
-//        String token = jwtProvider.generateTokenForEmployee(user);
-//
-//        InfoDto info = new InfoDto(
-//                user.getAccountId(),
-//                user.getAccountName(),
-//                user.getEmailAddress(),
-//                user.getRoleId(),
-//                token
-//        );
-//
-//        Token tokenUser = tokenRepository.findByAccountId(info.getAccountId());
-//        if (tokenUser != null) {
-//            tokenUser.setToken(token);
-//            tokenRepository.save(tokenUser);
-//        } else {
-//            Token newUserToken = new Token();
-//            newUserToken.setAccountId(info.getAccountId());
-//            newUserToken.setToken(token);
-////            newUserToken.setTokenId(tokenRepository.findAll().size() + 1);
-//            tokenRepository.save(newUserToken);
-//        }
-//
-//        return info;
-//    }
-
-
-//    @Override
-//    public void revokeToken(HttpServletRequest request) {
-//        String authorization = request.getHeader("Authorization");
-//        if (authorization != null && authorization.contains("Bearer")){
-//            String tokenId = authorization.substring("Bearer".length()+1);
-//            UserDto userDto = getInfoUserFromToken(tokenId);
-//
-//            Account account = accountRepository.findByAccountId(userDto.getUserId());
-//            Token userToken = tokenRepository.removeTokensByAccountId(account.getAccountId());
-//            tokenRepository.save(userToken);
-//        }
-//
-//    }
-
 }

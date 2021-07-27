@@ -37,14 +37,6 @@ public class ProvideJwt {
         return Integer.parseInt(id);
     }
 
-//    public Integer getUserIdFromJWT(String token) {
-//        Claims claims = Jwts.parser()
-//                .setSigningKey(jwtSecret)
-//                .parseClaimsJws(token)
-//                .getBody();
-//
-//        return  Integer.parseInt(claims.getSubject());
-//    }
 
     public String validateToken (String accessToken) {
         return JWT
@@ -53,6 +45,7 @@ public class ProvideJwt {
                 .verify(accessToken)
                 .getPayload();
     }
+}
 
 //    public boolean validateToken(String authToken) {
 //        try {
@@ -70,4 +63,14 @@ public class ProvideJwt {
 //        return false;
 //    }
 
-}
+
+//    public Integer getUserIdFromJWT(String token) {
+//        Claims claims = Jwts.parser()
+//                .setSigningKey(jwtSecret)
+//                .parseClaimsJws(token)
+//                .getBody();
+//
+//        return  Integer.parseInt(claims.getSubject());
+//    }
+
+

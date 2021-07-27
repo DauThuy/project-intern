@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.dto.AccountDto;
-import com.example.demo.model.dto.TokenResponse;
-import com.example.demo.model.dto.UserDto;
-import com.example.demo.model.request.ParamChangePassword;
-import com.example.demo.model.request.ParamCreateUser;
-import com.example.demo.model.request.ParamAdminUpdateUser;
-import com.example.demo.model.request.ParamUserUpdateUser;
+import com.example.demo.model.dto.account.AccountDto;
+import com.example.demo.model.dto.token.TokenResponse;
+import com.example.demo.model.dto.account.UserDto;
+import com.example.demo.model.request.accountRequest.ParamChangePassword;
+import com.example.demo.model.request.accountRequest.ParamCreateUser;
+import com.example.demo.model.request.accountRequest.ParamAdminUpdateUser;
+import com.example.demo.model.request.accountRequest.ParamUserUpdateUser;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +14,7 @@ import java.util.List;
 @Service
 public interface AccountService {
     TokenResponse login(AccountDto dto);
-//    public void revokeToken(HttpServletRequest request)
-
-    String revokeToken(int id);
     UserDto getInfoUserFromToken(String token);
-//    ConsumerTokenServices consumerTokenServices();
     List<UserDto> getAllUser();
     UserDto getUserById(int id);
     String deleteUserById(int id);
