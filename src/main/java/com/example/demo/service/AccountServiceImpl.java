@@ -58,7 +58,7 @@ public class AccountServiceImpl implements AccountService {
             throw new InValidEmailException();
         }
         Account user = accountRepository.findByEmailAddress(dto.getEmail());
-        if (user == null || !encoder.matches(dto.getPassword(), user.getAccountPassword())) {
+        if (user == null || !encoder.matches(dto.getPassword(), user.getAccountPassword()) || user.getIsDelete()) {
             throw new UnauthorizedException();
         }
         String token = jwtProvider.generateTokenForEmployee(user);
@@ -124,7 +124,6 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         Account account = AccountMapper.toCreateAccount(req);
-        account.setAccountId(accounts.size() + 1);
         accountRepository.save(account);
 
         return AccountMapper.toUserDto(account);

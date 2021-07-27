@@ -13,9 +13,9 @@ import java.util.Date;
 public class CampaignDto {
     private String campaignName;
     private Integer campaignStatus;
-    private Float usedAmount;
-    private Float usageRate;
-    private Float overalBudget;
+    private Integer usedAmount;
+    private Integer usageRate;
+    private Integer overalBudget;
     private Date startDate;
     private Date endDate;
 }

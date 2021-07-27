@@ -6,7 +6,6 @@ import com.example.demo.model.dto.campaign.CampaignDto;
 import com.example.demo.model.mapper.CampaignMapper;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import com.example.demo.repository.CampaignRepository;
-//import com.example.demo.util.CampaignUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public CampaignDto getCampaignById(int id) {
-        Campaign campaign = campaignRepository.findCampaignByCampaignId(id);
+        Campaign campaign = campaignRepository.findByCampaignId(id);
         if (!campaignRepository.existsById(id) || campaign.getIsDelete()) {
             throw new NotFoundException("Not found campaign");
         }
@@ -41,39 +40,35 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public CampaignDto createCampaign(CampaignRequest request) {
-        Campaign campaign = CampaignMapper.toCreateOrUpdateCampaign(request);
+        Campaign campaign = CampaignMapper.toCreate(request);
         campaignRepository.save(campaign);
         return CampaignMapper.toCampaignDto(campaign);
     }
 
-
     @Override
     public CampaignDto updateCampaign(CampaignRequest request, int id) {
-        Campaign campaign = campaignRepository.findCampaignByCampaignId(id);
-        Calendar endTime = Calendar.getInstance();
-        Date startTime = new Date();
-        endTime.setTime(startTime);
-        endTime.roll(Calendar.DATE, 2);
-
+        Campaign campaign = campaignRepository.findByCampaignId(id);
         campaign.setCampaignName(request.getCampaignName());
         campaign.setCampaignStatus(request.getCampaignStatus());
-        campaign.setStartDate(startTime);
-        campaign.setEndDate(endTime.getTime());
+        campaign.setStartDate(request.getStartDate());
+        campaign.setEndDate(request.getEndDate());
+
         campaign.setOveralBudget(request.getOveralBudget());
         campaign.setBidAmount(request.getBidAmount());
-        campaign.setIsDelete(campaign.getIsDelete());
+
         campaign.setTitle(request.getTitle());
         campaign.setDescription(request.getDescription());
         campaign.setPreview(request.getPreview());
         campaign.setFinalUrl(request.getFinalUrl());
         campaign.setAccountId(request.getAccountId());
 
+        campaignRepository.save(campaign);
         return CampaignMapper.toCampaignDto(campaign);
     }
 
     @Override
     public String deleteCampaignById(int id) {
-        Campaign campaign = campaignRepository.findCampaignByCampaignId(id);
+        Campaign campaign = campaignRepository.findByCampaignId(id);
         campaign.setIsDelete(true);
         campaignRepository.save(campaign);
 

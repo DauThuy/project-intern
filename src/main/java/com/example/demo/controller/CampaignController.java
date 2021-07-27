@@ -24,16 +24,27 @@ public class CampaignController {
         return ResponseEntity.ok(campaigns);
     }
 
+    @GetMapping("/campaign/{id}")
+    public ResponseEntity<?> getCampaignById(@PathVariable int id) {
+        CampaignDto campaignDto = campaignService.getCampaignById(id);
+        return ResponseEntity.ok(campaignDto);
+    }
 
-    @PostMapping("/campaign/create")
+    @PostMapping("/campaign")
     public ResponseEntity<?> createCampaign(@Valid @RequestBody CampaignRequest req) {
         CampaignDto campaignDto = campaignService.createCampaign(req);
         return ResponseEntity.ok(campaignDto);
     }
 
-    @GetMapping("/campaign/{id}")
-    public ResponseEntity<?> getCampaignById(@PathVariable int id) {
-        CampaignDto campaignDto = campaignService.getCampaignById(id);
+    @PutMapping("/campaign/{id}")
+    public ResponseEntity<?> updateCampaign(@Valid @RequestBody CampaignRequest req, @PathVariable int id) {
+        CampaignDto campaignDto = campaignService.updateCampaign(req, id);
         return ResponseEntity.ok(campaignDto);
+    }
+
+    @DeleteMapping("/campaign/{id}")
+    public ResponseEntity<?> deleteCampaign(@PathVariable int id) {
+        campaignService.deleteCampaignById(id);
+        return ResponseEntity.ok("deleted campaign " + id);
     }
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.relational.core.sql.In;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -30,10 +31,10 @@ public class CampaignRequest {
     private Date endDate;
 
     @NotNull
-    private Float overalBudget;
+    private Integer overalBudget;
 
     @NotNull
-    private Float bidAmount;
+    private Integer bidAmount;
 
     @NotNull
     private String title;

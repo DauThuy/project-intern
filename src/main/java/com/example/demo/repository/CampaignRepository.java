@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
     List<Campaign> findAllBy();
-    Campaign findCampaignByCampaignId(int id);
+    Campaign findByCampaignId(int id);
 }

@@ -3,9 +3,6 @@ package com.example.demo.model.mapper;
 import com.example.demo.entity.Campaign;
 import com.example.demo.model.dto.campaign.CampaignDto;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
-import com.example.demo.repository.CampaignRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,8 +12,8 @@ public class CampaignMapper {
         CampaignDto campaignMapper = new CampaignDto();
         campaignMapper.setCampaignName(campaign.getCampaignName());
         campaignMapper.setCampaignStatus(campaign.getCampaignStatus());
-        campaignMapper.setUsedAmount(0f);
-        campaignMapper.setUsageRate(0f);
+        campaignMapper.setUsedAmount(0);
+        campaignMapper.setUsageRate(0);
         campaignMapper.setOveralBudget(campaign.getOveralBudget());
         campaignMapper.setStartDate((campaign.getStartDate()));
         campaignMapper.setEndDate(campaign.getEndDate());
@@ -24,7 +21,7 @@ public class CampaignMapper {
         return campaignMapper;
     }
 
-    public static Campaign toCreateOrUpdateCampaign (CampaignRequest request) {
+    public static Campaign toCreate (CampaignRequest request) {
         Campaign campaign = new Campaign();
         Calendar endTime = Calendar.getInstance();
         Date startTime = new Date();

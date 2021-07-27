@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.relational.core.sql.In;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,10 +33,10 @@ public class Campaign {
     private Date endDate;
 
     @Column(name = "overal_budget", nullable = false)
-    private Float overalBudget;
+    private Integer overalBudget;
 
     @Column(name = "bid_amount", nullable = false)
-    private Float bidAmount;
+    private Integer bidAmount;
 
     @Column(name = "campaign_status", nullable = false)
     private Integer campaignStatus;
