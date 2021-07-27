@@ -6,6 +6,8 @@ import com.example.demo.model.dto.campaign.CampaignDto;
 import com.example.demo.model.mapper.CampaignMapper;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import com.example.demo.repository.CampaignRepository;
+import com.example.demo.util.CampaignUtils;
+import com.example.demo.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class CampaignServiceImpl implements CampaignService {
                 campaignDtos.add(CampaignMapper.toCampaignDto(campaign));
             }
         }
+        Collections.sort(campaignDtos, new CampaignUtils());
         return campaignDtos;
     }
 

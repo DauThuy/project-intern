@@ -1,12 +1,12 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.relational.core.sql.In;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,9 +27,11 @@ public class Campaign {
     private String campaignName;
 
     @Column(name = "start_date", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startDate;
 
     @Column(name = "end_date", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endDate;
 
     @Column(name = "overal_budget", nullable = false)
@@ -44,10 +46,12 @@ public class Campaign {
     @Column(name = "date_created")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateCreated;
 
     @Column(name = "date_modified")
     @UpdateTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateModified;
 
     @Column(name = "account_id", nullable = false)
@@ -67,4 +71,10 @@ public class Campaign {
 
     @Column(name="final_url", nullable = false)
     private String finalUrl;
+
+    @Column(name="cost", columnDefinition = "integer default 0")
+    private Integer cost;
+
+    @Column(name="click", columnDefinition = "integer default 0")
+    private Integer click;
 }

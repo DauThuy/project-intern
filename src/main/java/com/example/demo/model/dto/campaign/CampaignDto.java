@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CampaignDto {
+    private Integer campaignId;
     private String campaignName;
     private Integer campaignStatus;
     private Integer usedAmount;
