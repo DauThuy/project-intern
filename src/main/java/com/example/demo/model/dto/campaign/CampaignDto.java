@@ -19,4 +19,11 @@ public class CampaignDto {
     private Integer overalBudget;
     private Date startDate;
     private Date endDate;
+
+    private Integer budget;
+    private Integer bidAmount;
+    private String title;
+    private String description;
+    private String preview;
+    private String finalUrl;
 }

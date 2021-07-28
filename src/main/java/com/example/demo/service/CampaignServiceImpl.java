@@ -7,7 +7,6 @@ import com.example.demo.model.mapper.CampaignMapper;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import com.example.demo.repository.CampaignRepository;
 import com.example.demo.util.CampaignUtils;
-import com.example.demo.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +75,28 @@ public class CampaignServiceImpl implements CampaignService {
         campaignRepository.save(campaign);
 
         return "removed campaign" + id;
+    }
+
+    @Override
+    public int getViews(int id) {
+        Campaign campaign = campaignRepository.findByCampaignId(id);
+        int clicks = campaign.getClicks();
+        int cost = campaign.getCost();
+
+        clicks += 1;
+        cost += campaign.getBidAmount();
+
+        campaign.setClicks(clicks);
+        campaign.setCost(cost);
+        campaignRepository.save(campaign);
+        return clicks;
+    }
+
+    @Override
+    public List<String> getBanners(int id) {
+        List<String> banners = new ArrayList<>();
+        //...
+        return banners;
     }
 }
 

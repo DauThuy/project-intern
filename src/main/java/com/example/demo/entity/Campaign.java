@@ -75,6 +75,6 @@ public class Campaign {
     @Column(name="cost", columnDefinition = "integer default 0")
     private Integer cost;
 
-    @Column(name="click", columnDefinition = "integer default 0")
-    private Integer click;
+    @Column(name="clicks", columnDefinition = "integer default 0")
+    private Integer clicks;
 }

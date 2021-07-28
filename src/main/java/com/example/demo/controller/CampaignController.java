@@ -47,4 +47,16 @@ public class CampaignController {
         campaignService.deleteCampaignById(id);
         return ResponseEntity.ok("deleted campaign " + id);
     }
+
+    @GetMapping("/campaigns/{id}/click")
+    public ResponseEntity<?> getViews(@PathVariable int id) {
+        campaignService.getViews(id);
+        return ResponseEntity.ok("clicked");
+    }
+
+    @GetMapping("/campaigns/banners")
+    public ResponseEntity<?> getBanner(@PathVariable int id) {
+        List<String> banners = campaignService.getBanners(id);
+        return ResponseEntity.ok("get banner successfull" + getCampaignById(id));
+    }
 }
