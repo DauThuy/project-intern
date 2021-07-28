@@ -80,8 +80,12 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
+<<<<<<< HEAD
     public ResponseForClickDto getViews(int id) {
         ResponseForClickDto responseForClickDto = new ResponseForClickDto();
+=======
+    public int getViews(int id) {
+>>>>>>> 9c034511a06d461e61fc735cf01689fbba458ec5
         Campaign campaign = campaignRepository.findByCampaignId(id);
         int clicks = campaign.getClicks();
         int cost = campaign.getCost();
@@ -92,6 +96,7 @@ public class CampaignServiceImpl implements CampaignService {
         campaign.setClicks(clicks);
         campaign.setCost(cost);
         campaignRepository.save(campaign);
+<<<<<<< HEAD
 
         responseForClickDto.setFinalUrl(campaign.getFinalUrl());
         System.out.println("numbers of click: " + clicks);
@@ -124,6 +129,15 @@ public class CampaignServiceImpl implements CampaignService {
 
 //        responseForBannerDto.setCampaign_id(ca);
 //        responseForBannerDto.setPreivew(banners);
+=======
+        return clicks;
+    }
+
+    @Override
+    public List<String> getBanners(int id) {
+        List<String> banners = new ArrayList<>();
+        //...
+>>>>>>> 9c034511a06d461e61fc735cf01689fbba458ec5
         return banners;
     }
 }
