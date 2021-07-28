@@ -80,12 +80,8 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-<<<<<<< HEAD
     public ResponseForClickDto getViews(int id) {
         ResponseForClickDto responseForClickDto = new ResponseForClickDto();
-=======
-    public int getViews(int id) {
->>>>>>> 9c034511a06d461e61fc735cf01689fbba458ec5
         Campaign campaign = campaignRepository.findByCampaignId(id);
         int clicks = campaign.getClicks();
         int cost = campaign.getCost();
@@ -96,51 +92,40 @@ public class CampaignServiceImpl implements CampaignService {
         campaign.setClicks(clicks);
         campaign.setCost(cost);
         campaignRepository.save(campaign);
-<<<<<<< HEAD
 
         responseForClickDto.setFinalUrl(campaign.getFinalUrl());
         System.out.println("numbers of click: " + clicks);
         System.out.println("url: " + campaign.getFinalUrl());
         return responseForClickDto;
-    }
-
-    @Override
-    public List<ResponseForBannerDto> getBanners() {
-        ResponseForBannerDto responseForBannerDto = new ResponseForBannerDto();
-        List<Campaign> campaigns = campaignRepository.findAllBy();
-        List<Campaign> campaignSortedByBidAmounts =  new ArrayList<>();
-        List<ResponseForBannerDto> banners = new ArrayList<>();
-
-        for (Campaign campaign: campaigns) {
-            if (campaign.getOveralBudget() - campaign.getCost() >= campaign.getBidAmount()) {
-                campaignSortedByBidAmounts.add(campaign);
-            }
-        }
-        campaignSortedByBidAmounts.stream().sorted();
-
-        int countBanner = 0;
-        for (Campaign campaign: campaignSortedByBidAmounts) {
-            if (countBanner > 4) {
-                break;
-            }
-            banners.add(new ResponseForBannerDto(campaign.getCampaignId(), campaign.getPreview()));
-            countBanner++;
         }
 
-//        responseForBannerDto.setCampaign_id(ca);
-//        responseForBannerDto.setPreivew(banners);
-=======
-        return clicks;
+        @Override
+        public List<ResponseForBannerDto> getBanners() {
+            ResponseForBannerDto responseForBannerDto = new ResponseForBannerDto();
+            List<Campaign> campaigns = campaignRepository.findAllBy();
+            List<Campaign> campaignSortedByBidAmounts =  new ArrayList<>();
+            List<ResponseForBannerDto> banners = new ArrayList<>();
+
+            for (Campaign campaign: campaigns) {
+                if (campaign.getOveralBudget() - campaign.getCost() >= campaign.getBidAmount()) {
+                    campaignSortedByBidAmounts.add(campaign);
+                }
+            }
+            campaignSortedByBidAmounts.stream().sorted();
+
+            int countBanner = 0;
+            for (Campaign campaign: campaignSortedByBidAmounts) {
+                if (countBanner > 4) {
+                    break;
+                }
+                banners.add(new ResponseForBannerDto(campaign.getCampaignId(), campaign.getPreview()));
+                countBanner++;
+            }
+
+            return banners;
+        }
     }
 
-    @Override
-    public List<String> getBanners(int id) {
-        List<String> banners = new ArrayList<>();
-        //...
->>>>>>> 9c034511a06d461e61fc735cf01689fbba458ec5
-        return banners;
-    }
-}
 
 //        campaign.setDateCreated(campaign.getDateCreated());
 //        campaign.setDateModified(campaign.getDateModified());

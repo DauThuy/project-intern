@@ -74,13 +74,8 @@ public class Campaign {
     @Column(name="cost")
     private Integer cost = 0;
 
-<<<<<<< HEAD
     @Column(name="clicks")
     private Integer clicks = 0;
-=======
-    @Column(name="clicks", columnDefinition = "integer default 0")
-    private Integer clicks;
->>>>>>> 9c034511a06d461e61fc735cf01689fbba458ec5
 }
 
 //, columnDefinition = "int default 0"

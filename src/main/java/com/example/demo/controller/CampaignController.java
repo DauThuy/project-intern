@@ -52,7 +52,6 @@ public class CampaignController {
 
     @GetMapping("/campaigns/{id}/click")
     public ResponseEntity<?> getViews(@PathVariable int id) {
-<<<<<<< HEAD
         ResponseForClickDto responseForClickDto = campaignService.getViews(id);
         return ResponseEntity.ok(responseForClickDto);
     }
@@ -61,15 +60,5 @@ public class CampaignController {
     public ResponseEntity<?> getBanner() {
         List<ResponseForBannerDto> banners = campaignService.getBanners();
         return ResponseEntity.ok(banners);
-=======
-        campaignService.getViews(id);
-        return ResponseEntity.ok("clicked");
-    }
-
-    @GetMapping("/campaigns/banners")
-    public ResponseEntity<?> getBanner(@PathVariable int id) {
-        List<String> banners = campaignService.getBanners(id);
-        return ResponseEntity.ok("get banner successfull" + getCampaignById(id));
->>>>>>> 9c034511a06d461e61fc735cf01689fbba458ec5
     }
 }
