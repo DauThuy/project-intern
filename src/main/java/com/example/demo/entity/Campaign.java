@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -44,14 +45,13 @@ public class Campaign {
     private Integer campaignStatus;
 
     @Column(name = "date_created")
-    @CreationTimestamp
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateCreated;
 
     @Column(name = "date_modified")
     @UpdateTimestamp
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dateModified;
 
     @Column(name = "account_id", nullable = false)
@@ -72,9 +72,11 @@ public class Campaign {
     @Column(name="final_url", nullable = false)
     private String finalUrl;
 
-    @Column(name="cost", columnDefinition = "integer default 0")
-    private Integer cost;
+    @Column(name="cost")
+    private Integer cost = 0;
 
-    @Column(name="click", columnDefinition = "integer default 0")
-    private Integer click;
+    @Column(name="clicks")
+    private Integer clicks = 0;
 }
+
+//, columnDefinition = "int default 0"

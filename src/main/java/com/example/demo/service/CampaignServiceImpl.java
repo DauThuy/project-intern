@@ -7,7 +7,6 @@ import com.example.demo.model.mapper.CampaignMapper;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import com.example.demo.repository.CampaignRepository;
 import com.example.demo.util.CampaignUtils;
-import com.example.demo.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +62,7 @@ public class CampaignServiceImpl implements CampaignService {
         campaign.setDescription(request.getDescription());
         campaign.setPreview(request.getPreview());
         campaign.setFinalUrl(request.getFinalUrl());
-        campaign.setAccountId(request.getAccountId());
+//        campaign.setAccountId(request.getAccountId());
 
         campaignRepository.save(campaign);
         return CampaignMapper.toCampaignDto(campaign);
@@ -76,6 +75,45 @@ public class CampaignServiceImpl implements CampaignService {
         campaignRepository.save(campaign);
 
         return "removed campaign" + id;
+    }
+
+    @Override
+    public int getViews(int id) {
+        Campaign campaign = campaignRepository.findByCampaignId(id);
+        int clicks = campaign.getClicks();
+        int cost = campaign.getCost();
+
+        clicks += 1;
+        cost += campaign.getBidAmount();
+
+        campaign.setClicks(clicks);
+        campaign.setCost(cost);
+        campaignRepository.save(campaign);
+        return clicks;
+    }
+
+    @Override
+    public List<String> getBanners() {
+        List<Campaign> campaigns = campaignRepository.findAllBy();
+        List<Campaign> campaignSortedByBidAmounts =  new ArrayList<>();
+        List<String> banners = new ArrayList<>();
+
+        for (Campaign campaign: campaigns) {
+            if (campaign.getOveralBudget() - campaign.getCost() >= campaign.getBidAmount()) {
+                campaignSortedByBidAmounts.add(campaign);
+            }
+        }
+        campaignSortedByBidAmounts.stream().sorted();
+
+        int countBanner = 0;
+        for (Campaign campaign: campaignSortedByBidAmounts) {
+            if (countBanner > 4) {
+                break;
+            }
+            banners.add(campaign.getPreview());
+            countBanner++;
+        }
+        return banners;
     }
 }
 

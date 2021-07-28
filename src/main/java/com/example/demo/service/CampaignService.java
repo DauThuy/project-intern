@@ -12,4 +12,6 @@ public interface CampaignService {
     CampaignDto createCampaign(CampaignRequest request);
     CampaignDto updateCampaign(CampaignRequest request, int id);
     String deleteCampaignById(int id);
+    int getViews(int id);
+    List<String> getBanners();
 }
