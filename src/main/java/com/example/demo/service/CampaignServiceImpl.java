@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.entity.Campaign;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.dto.campaign.CampaignDto;
+import com.example.demo.model.dto.campaign.ResponseForBannerDto;
+import com.example.demo.model.dto.campaign.ResponseForClickDto;
 import com.example.demo.model.mapper.CampaignMapper;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import com.example.demo.repository.CampaignRepository;
@@ -78,7 +80,8 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public int getViews(int id) {
+    public ResponseForClickDto getViews(int id) {
+        ResponseForClickDto responseForClickDto = new ResponseForClickDto();
         Campaign campaign = campaignRepository.findByCampaignId(id);
         int clicks = campaign.getClicks();
         int cost = campaign.getCost();
@@ -89,14 +92,19 @@ public class CampaignServiceImpl implements CampaignService {
         campaign.setClicks(clicks);
         campaign.setCost(cost);
         campaignRepository.save(campaign);
-        return clicks;
+
+        responseForClickDto.setFinalUrl(campaign.getFinalUrl());
+        System.out.println("numbers of click: " + clicks);
+        System.out.println("url: " + campaign.getFinalUrl());
+        return responseForClickDto;
     }
 
     @Override
-    public List<String> getBanners() {
+    public List<ResponseForBannerDto> getBanners() {
+        ResponseForBannerDto responseForBannerDto = new ResponseForBannerDto();
         List<Campaign> campaigns = campaignRepository.findAllBy();
         List<Campaign> campaignSortedByBidAmounts =  new ArrayList<>();
-        List<String> banners = new ArrayList<>();
+        List<ResponseForBannerDto> banners = new ArrayList<>();
 
         for (Campaign campaign: campaigns) {
             if (campaign.getOveralBudget() - campaign.getCost() >= campaign.getBidAmount()) {
@@ -110,9 +118,12 @@ public class CampaignServiceImpl implements CampaignService {
             if (countBanner > 4) {
                 break;
             }
-            banners.add(campaign.getPreview());
+            banners.add(new ResponseForBannerDto(campaign.getCampaignId(), campaign.getPreview()));
             countBanner++;
         }
+
+//        responseForBannerDto.setCampaign_id(ca);
+//        responseForBannerDto.setPreivew(banners);
         return banners;
     }
 }

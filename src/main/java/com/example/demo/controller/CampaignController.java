@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 
 import com.example.demo.model.dto.campaign.CampaignDto;
+import com.example.demo.model.dto.campaign.ResponseForBannerDto;
+import com.example.demo.model.dto.campaign.ResponseForClickDto;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import com.example.demo.service.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,13 +52,13 @@ public class CampaignController {
 
     @GetMapping("/campaigns/{id}/click")
     public ResponseEntity<?> getViews(@PathVariable int id) {
-        campaignService.getViews(id);
-        return ResponseEntity.ok("clicked");
+        ResponseForClickDto responseForClickDto = campaignService.getViews(id);
+        return ResponseEntity.ok(responseForClickDto);
     }
 
     @GetMapping("/campaigns/banners")
     public ResponseEntity<?> getBanner() {
-        List<String> banners = campaignService.getBanners();
-        return ResponseEntity.ok("get banner successfull");
+        List<ResponseForBannerDto> banners = campaignService.getBanners();
+        return ResponseEntity.ok(banners);
     }
 }

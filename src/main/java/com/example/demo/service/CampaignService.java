@@ -1,5 +1,7 @@
 package com.example.demo.service;
 import com.example.demo.model.dto.campaign.CampaignDto;
+import com.example.demo.model.dto.campaign.ResponseForBannerDto;
+import com.example.demo.model.dto.campaign.ResponseForClickDto;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,6 @@ public interface CampaignService {
     CampaignDto createCampaign(CampaignRequest request);
     CampaignDto updateCampaign(CampaignRequest request, int id);
     String deleteCampaignById(int id);
-    int getViews(int id);
-    List<String> getBanners();
+    ResponseForClickDto getViews(int id);
+    List<ResponseForBannerDto> getBanners();
 }

@@ -24,15 +24,16 @@ public class Campaign {
     @Column(name = "campaign_id")
     private Integer campaignId;
 
-    @Column(name = "campaign_name", nullable = false)
+    @Column(name = "campaign_name")
     private String campaignName;
 
-    @Column(name = "start_date", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "start_date")
+    @CreationTimestamp
     private Date startDate;
 
     @Column(name = "end_date", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @CreationTimestamp
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endDate;
 
     @Column(name = "overal_budget", nullable = false)
@@ -45,9 +46,7 @@ public class Campaign {
     private Integer campaignStatus;
 
     @Column(name = "date_created")
-    @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @CreationTimestamp
     private Date dateCreated;
 
     @Column(name = "date_modified")

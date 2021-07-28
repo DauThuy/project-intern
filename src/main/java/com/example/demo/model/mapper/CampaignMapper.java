@@ -36,19 +36,21 @@ public class CampaignMapper {
 
     public static Campaign toCreate (CampaignRequest request) {
         Campaign campaign = new Campaign();
-
+//
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
-
-//        Date now = Calendar.getInstance().getTime();
-//        Calendar calendar = Calendar.getInstance();
-
-        calendar.add(Calendar.DAY_OF_MONTH, 2);
-        Date endTime = calendar.getTime();
+//
+//        calendar.add(Calendar.DAY_OF_MONTH, 2);
+//        Date endTime = calendar.getTime();
 
         campaign.setCampaignName(request.getCampaignName());
-        campaign.setStartDate(now);//campaign.getStartDate()
-        campaign.setEndDate(endTime); //request.getEndDate()
+
+//        if (request.getStartDate().before(now)) {
+//            throw
+//        }
+        campaign.setStartDate(request.getStartDate());//campaign.getStartDate()
+        campaign.setEndDate(request.getEndDate()); //endTime
+
         campaign.setOveralBudget(request.getOveralBudget());
         campaign.setBidAmount(request.getBidAmount());
         campaign.setCampaignStatus(request.getCampaignStatus());
