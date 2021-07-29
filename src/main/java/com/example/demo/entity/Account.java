@@ -54,4 +54,6 @@ public class Account {
 
     @Column(name = "is_delete", columnDefinition = "boolean default false", nullable = false)
     private Boolean isDelete;
+
+    private String authorities;
 }
