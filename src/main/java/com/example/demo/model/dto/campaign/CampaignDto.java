@@ -14,16 +14,17 @@ public class CampaignDto {
     private Integer campaignId;
     private String campaignName;
     private Integer campaignStatus;
+
     private Integer usedAmount;
-    private Integer usageRate;
+    private Float usageRate;
     private Integer overalBudget;
     private Date startDate;
     private Date endDate;
 
-    private Integer budget;
     private Integer bidAmount;
     private String title;
     private String description;
     private String preview;
     private String finalUrl;
 }
+//    private Integer budget;
