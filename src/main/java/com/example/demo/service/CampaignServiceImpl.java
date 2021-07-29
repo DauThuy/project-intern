@@ -57,36 +57,14 @@ public class CampaignServiceImpl implements CampaignService {
         if (!campaignRepository.existsById(id) || campaign.getIsDelete()) {
             throw new NotFoundException("Not found campaign");
         }
-//        Date now = new Date();
-
         campaign.setCampaignName(request.getCampaignName());
         campaign.setCampaignStatus(request.getCampaignStatus());
 
-//        if (!DateConditional.vailidDate(request.getStartDate(), request.getEndDate())) {
-//            throw new InValidDateException();
-//        }
-        if (!DateConditional.startedDateModifiedConditional(campaign.getDateCreated(), request.getStartDate())) {
-            throw new InValidDateException();
-        }
-        if (!DateConditional.endDateModifiedConditional(campaign.getDateCreated(), request.getStartDate(), request.getEndDate())) {
+        if (!DateConditional.endDateConditional(request.getStartDate(), request.getEndDate())) {
             throw new InValidDateException();
         }
         campaign.setStartDate(request.getStartDate());
         campaign.setEndDate(request.getEndDate());
-
-
-//        if (CreatedModifiedDateConditional.createdDateConditional(request.getStartDate())) {
-//            campaign.setStartDate(request.getStartDate());
-//        } else {
-//            throw new InValidDate();
-//        }
-//
-//        if (CreatedModifiedDateConditional.modifiedDateConditional(request.getStartDate(), request.getEndDate())) {
-//            campaign.setEndDate(request.getEndDate());
-//        } else {
-//            throw new InValidDate();
-//        }
-//        campaign.setEndDate(request.getEndDate());
         
         campaign.setOveralBudget(request.getOveralBudget());
         campaign.setBidAmount(request.getBidAmount());
@@ -95,7 +73,6 @@ public class CampaignServiceImpl implements CampaignService {
         campaign.setDescription(request.getDescription());
         campaign.setPreview(request.getPreview());
         campaign.setFinalUrl(request.getFinalUrl());
-//        campaign.setAccountId(request.getAccountId());
 
         campaignRepository.save(campaign);
         return CampaignMapper.toCampaignDto(campaign);

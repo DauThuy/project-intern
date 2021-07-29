@@ -13,24 +13,14 @@ import java.util.Date;
 @NoArgsConstructor
 public class UserDto {
     private Integer userId;
-
     private String userName;
-
     private String userPassword;
-
     private String userEmailAddress;
-
     private String userImage;
-
     private Integer userStatus;
-
     private Date approvalDate;
-
     private Date dateCreated;
-
     private Date dateModified;
-
     private Integer roleId;
-
     private Boolean isDelete;
 }

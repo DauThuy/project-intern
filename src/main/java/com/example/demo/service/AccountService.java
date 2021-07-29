@@ -22,4 +22,5 @@ public interface AccountService {
     UserDto updateUserByUser(ParamUserUpdateUser req, int id);
     UserDto updateUserByAdmin(ParamAdminUpdateUser req, int id);
     UserDto changePassword(ParamChangePassword req, int id);
+
 }

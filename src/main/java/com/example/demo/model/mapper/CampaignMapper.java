@@ -1,10 +1,10 @@
 package com.example.demo.model.mapper;
 
 import com.example.demo.entity.Campaign;
+import com.example.demo.exception.InValidBidAmountException;
 import com.example.demo.exception.InValidDateException;
 import com.example.demo.model.dto.campaign.CampaignDto;
 import com.example.demo.model.request.campaignRequest.CampaignRequest;
-import com.example.demo.util.CampaignUtils;
 import com.example.demo.util.DateConditional;
 
 public class CampaignMapper {
@@ -32,24 +32,23 @@ public class CampaignMapper {
 
     public static Campaign toCreate (CampaignRequest request) {
         Campaign campaign = new Campaign();
-        if (DateConditional.createdDateConditional(request.getStartDate())) {
-            campaign.setStartDate(request.getStartDate());
-        } else {
-            throw new InValidDateException();
-        }
-        if (DateConditional.endDateConditional(request.getStartDate(), request.getEndDate())) {
-            campaign.setEndDate(request.getEndDate());
-        } else {
-            throw new InValidDateException();
-        }
-        campaign.setCampaignName(request.getCampaignName());
 
+        if (!DateConditional.endDateConditional(request.getStartDate(), request.getEndDate())) {
+            throw new InValidDateException();
+        }
+        if (request.getOveralBudget() < request.getBidAmount()) {
+            throw new InValidBidAmountException();
+        }
+        campaign.setStartDate(request.getStartDate());
+        campaign.setEndDate(request.getEndDate());
+
+        System.out.println("end date: " + request.getEndDate());
+        System.out.println("end date: " + campaign.getEndDate());
+
+        campaign.setCampaignName(request.getCampaignName());
         campaign.setOveralBudget(request.getOveralBudget());
         campaign.setBidAmount(request.getBidAmount());
         campaign.setCampaignStatus(request.getCampaignStatus());
-
-        campaign.setDateCreated(campaign.getDateCreated());
-        campaign.setDateModified(campaign.getDateModified());
 
         campaign.setAccountId(request.getAccountId());
         campaign.setIsDelete(campaign.getIsDelete());
@@ -59,31 +58,13 @@ public class CampaignMapper {
         campaign.setPreview(request.getPreview());
         campaign.setFinalUrl(request.getFinalUrl());
 
+        campaign.setCost(0);
+        campaign.setClicks(0);
+        campaign.setUsedAmount(0);
+        campaign.setUsageRate(0f);
+
         return campaign;
     }
 }
-//        Date now = new Date();
-//        Calendar calendar = Calendar.getInstance();
-
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-//        String strDate = dateFormat.format(date);
-//
-//        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(now);
-//        Calendar endTime = Calendar.getInstance();
-//        Date startTime = new Date();
-//        endTime.setTime(startTime);
-//        endTime.roll(Calendar.DATE, 2);
-
-//        campaignMapper.setBudget(campaign.getOveralBudget());
-
-//        calendar.add(Calendar.DAY_OF_MONTH, 2);
-//        Date endTime = calendar.getTime();
-
-
-//        if (request.getStartDate().before(now)) {
-//            throw
-//        }
-//        campaign.setStartDate(request.getStartDate());//campaign.getStartDate()
-//        campaign.setEndDate(request.getEndDate()); //endTime
 
 

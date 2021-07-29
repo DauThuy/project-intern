@@ -2,8 +2,6 @@ package com.example.demo.model.mapper;
 import com.example.demo.entity.Account;
 import com.example.demo.model.dto.account.UserDto;
 import com.example.demo.model.request.accountRequest.ParamCreateUser;
-import com.example.demo.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.util.Date;

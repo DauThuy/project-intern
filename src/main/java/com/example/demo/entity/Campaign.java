@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,12 +25,10 @@ public class Campaign {
     @Column(name = "campaign_name")
     private String campaignName;
 
-    @Column(name = "start_date")
-    @CreationTimestamp
+    @Column(name = "start_date", nullable = false)
     private Date startDate;
 
-    @Column(name = "end_date")
-    @CreationTimestamp
+    @Column(name = "end_date", nullable = false)
     private Date endDate;
 
     @Column(name = "overal_budget", nullable = false)

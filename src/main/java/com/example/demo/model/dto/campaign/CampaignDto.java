@@ -27,4 +27,3 @@ public class CampaignDto {
     private String preview;
     private String finalUrl;
 }
-//    private Integer budget;

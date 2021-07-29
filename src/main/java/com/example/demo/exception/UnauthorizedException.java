@@ -8,7 +8,4 @@ public class UnauthorizedException extends RuntimeException{
     public UnauthorizedException() {
         super("Your username or password is not right, please check again");
     }
-//    public UnauthorizedException(String msg) {
-//        super(msg);
-//    }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,24 +31,22 @@ public class Account {
     @Column(name = "email_address", unique = true, nullable = false)
     private String emailAddress;
 
-    @Column(name = "account_image", columnDefinition = "varchar(255) default 'ava.png'", nullable = false)
+    @Column(name = "account_image", nullable = false)
     private String accountImage;
 
     @Column(name = "account_status", nullable = false)
     private Integer accountStatus;
 
-    @Column(name = "approval_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "approval_date")
+    @CreationTimestamp
     private Date approvalDate;
 
-    @Column(name = "date_created", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-//    @CreationTimestamp
+    @Column(name = "date_created")
+    @CreationTimestamp
     private Date dateCreated;
 
-    @Column(name = "date_modified", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-//    @UpdateTimestamp
+    @Column(name = "date_modified")
+    @UpdateTimestamp
     private Date dateModified;
 
     @Column(name = "role_id", nullable = false)
