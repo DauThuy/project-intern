@@ -50,7 +50,7 @@ public class CampaignController {
         return ResponseEntity.ok("deleted campaign " + id);
     }
 
-    @GetMapping("/campaigns/{id}/click")
+    @PostMapping("/campaigns/{id}/click")
     public ResponseEntity<?> getViews(@PathVariable int id) {
         ResponseForClickDto responseForClickDto = campaignService.getViews(id);
         return ResponseEntity.ok(responseForClickDto);

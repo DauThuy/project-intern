@@ -183,4 +183,4 @@ public class CampaignServiceImpl implements CampaignService {
 
         return usageRate;
     }
-    }
+}
